@@ -13,29 +13,29 @@ export default {
       isTooltipPinned: false,
 
       selectedTab: "card",
-    selectedArtworks: [],
-    searchQuery: "",
-    sortBy: "default",
-    preorderPrint: false,
-    balance: 105,
-    participationCost: 36,
-    nextWorkCost: 18,
-    isInfoModalOpen: false,
-    isTooltipPinned: false,
-    artworks: [
-      { id: 1, price: 14850, image: "/images/artworks/artwork1.jpg" },
-      { id: 2, price: 14850, image: "/images/artworks/artwork2.jpg" },
-      { id: 3, price: 14850, image: "/images/artworks/artwork3.jpg" },
-      { id: 4, price: 14850, image: "/images/artworks/artwork4.jpg" },
-      { id: 5, price: 14850, image: "/images/artworks/artwork1.jpg" },
-      { id: 6, price: 14850, image: "/images/artworks/artwork2.jpg" },
-      { id: 7, price: 14850, image: "/images/artworks/artwork3.jpg" },
-      { id: 8, price: 14850, image: "/images/artworks/artwork4.jpg" },
-      { id: 9, price: 14850, image: "/images/artworks/artwork1.jpg" },
-      { id: 10, price: 14850, image: "/images/artworks/artwork2.jpg" },
-      { id: 11, price: 14850, image: "/images/artworks/artwork3.jpg" },
-      { id: 12, price: 14850, image: "/images/artworks/artwork4.jpg" },
-    ],
+      selectedArtworks: [],
+      searchQuery: "",
+      sortBy: "default",
+      preorderPrint: false,
+      balance: 105,
+      participationCost: 36,
+      nextWorkCost: 18,
+      isInfoModalOpen: false,
+      isTooltipPinned: false,
+      artworks: [
+        { id: 1, price: 14850, image: "/images/artworks/artwork1.jpg" },
+        { id: 2, price: 14850, image: "/images/artworks/artwork2.jpg" },
+        { id: 3, price: 14850, image: "/images/artworks/artwork3.jpg" },
+        { id: 4, price: 14850, image: "/images/artworks/artwork4.jpg" },
+        { id: 5, price: 14850, image: "/images/artworks/artwork1.jpg" },
+        { id: 6, price: 14850, image: "/images/artworks/artwork2.jpg" },
+        { id: 7, price: 14850, image: "/images/artworks/artwork3.jpg" },
+        { id: 8, price: 14850, image: "/images/artworks/artwork4.jpg" },
+        { id: 9, price: 14850, image: "/images/artworks/artwork1.jpg" },
+        { id: 10, price: 14850, image: "/images/artworks/artwork2.jpg" },
+        { id: 11, price: 14850, image: "/images/artworks/artwork3.jpg" },
+        { id: 12, price: 14850, image: "/images/artworks/artwork4.jpg" },
+      ],
     };
   },
   methods: {
@@ -64,10 +64,15 @@ export default {
       Swal.fire({
         html: this.getModalContent(),
         showConfirmButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
         showCloseButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
         customClass: {
           popup: "art-modal",
           closeButton: "art-modal__close",
+          actions: "swal2-actions-hidden",
         },
         width: "1384px",
         didOpen: () => {
@@ -93,6 +98,13 @@ export default {
             <button class="search-button" id="searchBtn">
               <svg width="18" height="18" viewBox="0 0 16 16">
                 <path fill="#604093" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </button>
+            <button class="clear-button" id="clearBtn" style="display: ${
+              this.searchQuery ? "flex" : "none"
+            }">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
@@ -142,9 +154,10 @@ export default {
       <!-- Info section -->
       <div class="art-modal__info">
         <div class="info-item">
-          <span class="info-label">Стоимость участия (для первых двух работ)</span>
-          <span class="info-dash"> - </span>
-          <span class="info-value">${this.participationCost}</span>
+          <span class="info-label">Стоимость участия (для первых двух работ) <span class="info-value">- ${
+            this.participationCost
+          }</span></span>
+          
         </div>
         <div class="info-item">
           <span class="info-label">Каждая последующая</span>
@@ -267,19 +280,26 @@ export default {
       // Добавляем tooltip в DOM с начальной невидимостью
       tooltip.style.opacity = "0";
       tooltip.style.transform = "translateY(-10px) scale(0.95)";
-      document.body.appendChild(tooltip);
+
+      // Добавляем в art-modal-content вместо body
+      const modalContent = document.querySelector(".art-modal-content");
+      modalContent.appendChild(tooltip);
 
       // Позиционируем tooltip относительно иконки
       const infoIcon = document.getElementById("infoIcon");
+      const modalRect = modalContent.getBoundingClientRect();
       const iconRect = infoIcon.getBoundingClientRect();
 
       // Получаем реальные размеры tooltip
       const tooltipRect = tooltip.getBoundingClientRect();
 
-      // Позиционируем tooltip снизу от иконки
-      tooltip.style.left =
-        iconRect.left + iconRect.width / 2 - tooltipRect.width / 2 + "px";
-      tooltip.style.top = iconRect.bottom + 10 + "px";
+      // Вычисляем позицию относительно modalContent
+      const left =
+        iconRect.left - modalRect.left + iconRect.width / 2 - tooltipRect.width / 2;
+      const top = iconRect.bottom - modalRect.top + 10;
+
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
 
       // Позиционируем стрелочку точно по центру иконки
       const arrow = tooltip.querySelector(".tooltip-arrow");
@@ -337,17 +357,19 @@ export default {
       }
     },
 
-   renderGallery() {
-  return this.artworks
-    .map(artwork => `
+    renderGallery() {
+      return this.artworks
+        .map(
+          (artwork) => `
       <div class="artwork-item" data-id="${artwork.id}">
         <img src="${artwork.image}" alt="Artwork ${artwork.id}" class="artwork-image">
         <div class="artwork-price">#${artwork.price}</div>
         <div class="artwork-overlay"></div>
       </div>
-    `)
-    .join("");
-},
+    `
+        )
+        .join("");
+    },
 
     initModalEvents() {
       // Обработчики для табов оплаты
@@ -374,7 +396,16 @@ export default {
       // Обработчик поиска
       document.getElementById("searchInput").addEventListener("input", (e) => {
         this.searchQuery = e.target.value;
+        this.updateClearButton();
         // Реализуйте фильтрацию
+      });
+
+      // Обработчик кнопки очистки
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        this.searchQuery = "";
+        document.getElementById("searchInput").value = "";
+        this.updateClearButton();
+        // Реализуйте очистку фильтрации
       });
 
       // Обработчики кнопок
@@ -444,6 +475,13 @@ export default {
       });
 
       this.setupMasonryLayout();
+    },
+
+    updateClearButton() {
+      const clearBtn = document.getElementById("clearBtn");
+      if (clearBtn) {
+        clearBtn.style.display = this.searchQuery ? "flex" : "none";
+      }
     },
 
     updatePaymentTabs() {
