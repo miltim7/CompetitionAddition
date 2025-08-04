@@ -64,7 +64,6 @@
 
 .art-modal-content {
   position: relative;
-
   padding: var(--spacing-md);
   font-family: var(--font-family);
   font-size: 14px;
@@ -380,23 +379,21 @@
 }
 
 .art-modal__gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-sm);
+  columns: 4;
+  column-gap: var(--spacing-sm);
   margin-bottom: var(--spacing-lg);
   padding: 10px;
 }
 
 .artwork-item {
   width: 100%;
-  height: 200px;
   position: relative;
-  border-radius: var(--border-radius);
-  overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease;
-  background: var(--background);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  break-inside: avoid;
+  margin-bottom: var(--spacing-sm);
 }
 
 .artwork-item:hover {
@@ -406,9 +403,9 @@
 
 .artwork-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  border-radius: var(--border-radius);
 }
 
 .artwork-price {
@@ -432,6 +429,7 @@
   height: 100%;
   background: rgba(88, 86, 210, 0.3);
   display: none;
+  border-radius: var(--border-radius);
 }
 
 .artwork-item.selected .artwork-overlay {
@@ -454,6 +452,121 @@
   font-size: 14px;
   font-weight: bold;
   z-index: 10;
+}
+
+/* PAGINATION STYLES */
+.art-modal__pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) 0;
+  margin-bottom: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pagination-info {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  background: var(--background);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+  min-height: 44px;
+}
+
+.pagination-btn:hover:not(.disabled) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #F9FAFB;
+  color: var(--text-secondary);
+}
+
+.pagination-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.pagination-btn:hover:not(.disabled) svg {
+  transform: translateX(2px);
+}
+
+.pagination-btn--prev:hover:not(.disabled) svg {
+  transform: translateX(-2px);
+}
+
+.pagination-numbers {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.pagination-number {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background: var(--background);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+}
+
+.pagination-number:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.pagination-number.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(88, 86, 210, 0.3);
+}
+
+.pagination-number.active:hover {
+  background: var(--primary-hover);
+  transform: none;
+}
+
+.pagination-dots {
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 var(--spacing-sm);
+  line-height: 44px;
 }
 
 .art-modal__footer {
@@ -511,7 +624,6 @@
 
 .custom-tooltip {
   position: absolute;
-  /* Вместо fixed */
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: var(--spacing-md) 20px;
@@ -587,7 +699,18 @@
   }
 
   .art-modal__gallery {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    columns: 3;
+    column-gap: var(--spacing-sm);
+  }
+
+  .pagination-btn__text {
+    display: none;
+  }
+
+  .pagination-btn {
+    padding: 10px;
+    min-width: 44px;
+    justify-content: center;
   }
 }
 
@@ -679,12 +802,8 @@
   }
 
   .art-modal__gallery {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-sm);
-  }
-
-  .artwork-item {
-    height: 180px;
+    columns: 3;
+    column-gap: var(--spacing-sm);
   }
 
   .btn {
@@ -703,6 +822,36 @@
     max-width: 280px;
     padding: var(--spacing-md);
     font-size: 13px;
+  }
+
+  .art-modal__pagination {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: center;
+  }
+
+  .pagination-controls {
+    gap: var(--spacing-sm);
+  }
+
+  .pagination-numbers {
+    gap: 2px;
+  }
+
+  .pagination-number {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .pagination-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-height: 40px;
+  }
+
+  .pagination-info {
+    font-size: 14px;
   }
 }
 
@@ -761,7 +910,6 @@
 
   .search-input-wrapper {
     width: calc(100% - 25px);
-
     display: flex;
     align-items: center;
     gap: 0;
@@ -931,8 +1079,6 @@
     text-align: left;
   }
 
-
-
   .art-modal__preorder {
     margin: 0 0 20px 0;
   }
@@ -969,14 +1115,10 @@
   }
 
   .art-modal__gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
+    columns: 2;
+    column-gap: var(--spacing-sm);
     padding: 0;
     margin-bottom: var(--spacing-md);
-  }
-
-  .artwork-item {
-    height: 160px;
   }
 
   .artwork-price {
@@ -990,6 +1132,57 @@
     font-size: 12px;
     top: 6px;
     right: 6px;
+  }
+
+  /* Mobile pagination styles */
+  .art-modal__pagination {
+    padding: var(--spacing-md) 0;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .pagination-info {
+    font-size: 14px;
+    order: 2;
+  }
+
+  .pagination-controls {
+    order: 1;
+    gap: var(--spacing-sm);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: center;
+    padding: 0 var(--spacing-sm);
+  }
+
+  .pagination-numbers {
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .pagination-number {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .pagination-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-height: 36px;
+    flex-shrink: 0;
+  }
+
+  .pagination-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .pagination-dots {
+    font-size: 14px;
+    line-height: 36px;
   }
 
   .art-modal__footer {
@@ -1073,7 +1266,6 @@
     width: 40px;
     height: 40px;
     margin-left: 8px;
-    /* Только крестик имеет отступ */
   }
 
   .clear-button svg {
@@ -1082,12 +1274,8 @@
   }
 
   .art-modal__gallery {
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .artwork-item {
-    height: 140px;
+    columns: 2;
+    column-gap: 6px;
   }
 
   .payment-tab {
@@ -1120,6 +1308,39 @@
     font-weight: 600;
     height: 55px;
   }
+
+  /* Ultra-compact pagination for very small screens */
+  .pagination-controls {
+    gap: 4px;
+    padding: 0;
+  }
+
+  .pagination-number {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .pagination-btn {
+    padding: 4px 6px;
+    font-size: 11px;
+    min-height: 32px;
+  }
+
+  .pagination-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .pagination-dots {
+    font-size: 12px;
+    line-height: 32px;
+    padding: 0 2px;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -1141,10 +1362,6 @@
     padding: 2px;
   }
 
-  .artwork-item {
-    height: 120px;
-  }
-
   .artwork-price {
     font-size: 10px;
     padding: 2px 4px;
@@ -1156,6 +1373,22 @@
     font-size: 11px;
     top: 4px;
     right: 4px;
+  }
+
+  .pagination-number {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .pagination-btn {
+    padding: 4px;
+    min-height: 28px;
+  }
+
+  .pagination-btn svg {
+    width: 10px;
+    height: 10px;
   }
 }
 
@@ -1171,10 +1404,11 @@
   }
 
   .art-modal__gallery {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    columns: 2;
+    column-gap: var(--spacing-sm);
   }
 
   .artwork-item {
-    height: 120px;
+    border-radius: var(--border-radius);
   }
 }

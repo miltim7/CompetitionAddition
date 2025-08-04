@@ -20,24 +20,83 @@ export default {
       balance: 105,
       participationCost: 36,
       nextWorkCost: 18,
-      isInfoModalOpen: false,
-      isTooltipPinned: false,
+      
+      // Пагинация
+      currentPage: 1,
+      itemsPerPage: 12,
+      
+      // Расширенный массив для демонстрации пагинации (30 элементов)
       artworks: [
-        { id: 1, price: 14850, image: "/images/artworks/artwork1.jpg" },
-        { id: 2, price: 14850, image: "/images/artworks/artwork2.jpg" },
-        { id: 3, price: 14850, image: "/images/artworks/artwork3.jpg" },
-        { id: 4, price: 14850, image: "/images/artworks/artwork4.jpg" },
-        { id: 5, price: 14850, image: "/images/artworks/artwork1.jpg" },
-        { id: 6, price: 14850, image: "/images/artworks/artwork2.jpg" },
-        { id: 7, price: 14850, image: "/images/artworks/artwork3.jpg" },
-        { id: 8, price: 14850, image: "/images/artworks/artwork4.jpg" },
-        { id: 9, price: 14850, image: "/images/artworks/artwork1.jpg" },
-        { id: 10, price: 14850, image: "/images/artworks/artwork2.jpg" },
-        { id: 11, price: 14850, image: "/images/artworks/artwork3.jpg" },
-        { id: 12, price: 14850, image: "/images/artworks/artwork4.jpg" },
+        { id: 1, price: 14850, image: "/images/artworks/artwork1.jpg", title: "Sunset Dreams" },
+        { id: 2, price: 12400, image: "/images/artworks/artwork2.jpg", title: "Ocean Waves" },
+        { id: 3, price: 16700, image: "/images/artworks/artwork3.jpg", title: "Mountain Peak" },
+        { id: 4, price: 11200, image: "/images/artworks/artwork4.jpg", title: "City Lights" },
+        { id: 5, price: 18900, image: "/images/artworks/artwork1.jpg", title: "Forest Path" },
+        { id: 6, price: 13500, image: "/images/artworks/artwork2.jpg", title: "Desert Storm" },
+        { id: 7, price: 15800, image: "/images/artworks/artwork3.jpg", title: "River Flow" },
+        { id: 8, price: 10900, image: "/images/artworks/artwork4.jpg", title: "Sky Portal" },
+        { id: 9, price: 17600, image: "/images/artworks/artwork1.jpg", title: "Aurora Dance" },
+        { id: 10, price: 14200, image: "/images/artworks/artwork2.jpg", title: "Crystal Cave" },
+        { id: 11, price: 16300, image: "/images/artworks/artwork3.jpg", title: "Wind Song" },
+        { id: 12, price: 12800, image: "/images/artworks/artwork4.jpg", title: "Fire Spirit" },
+        { id: 13, price: 19200, image: "/images/artworks/artwork1.jpg", title: "Ice Kingdom" },
+        { id: 14, price: 11600, image: "/images/artworks/artwork2.jpg", title: "Thunder Strike" },
+        { id: 15, price: 15400, image: "/images/artworks/artwork3.jpg", title: "Moon Glow" },
+        { id: 16, price: 13900, image: "/images/artworks/artwork4.jpg", title: "Star Dust" },
+        { id: 17, price: 17800, image: "/images/artworks/artwork1.jpg", title: "Earth Song" },
+        { id: 18, price: 12100, image: "/images/artworks/artwork2.jpg", title: "Water Spirit" },
+        { id: 19, price: 16500, image: "/images/artworks/artwork3.jpg", title: "Air Dance" },
+        { id: 20, price: 14700, image: "/images/artworks/artwork4.jpg", title: "Light Beam" },
+        { id: 21, price: 18400, image: "/images/artworks/artwork1.jpg", title: "Shadow Play" },
+        { id: 22, price: 13200, image: "/images/artworks/artwork2.jpg", title: "Dream Catcher" },
+        { id: 23, price: 15900, image: "/images/artworks/artwork3.jpg", title: "Soul Mirror" },
+        { id: 24, price: 11800, image: "/images/artworks/artwork4.jpg", title: "Time Portal" },
+        { id: 25, price: 17200, image: "/images/artworks/artwork1.jpg", title: "Space Voyage" },
+        { id: 26, price: 14600, image: "/images/artworks/artwork2.jpg", title: "Mystic Garden" },
+        { id: 27, price: 16100, image: "/images/artworks/artwork3.jpg", title: "Magic Circle" },
+        { id: 28, price: 12500, image: "/images/artworks/artwork4.jpg", title: "Energy Flow" },
+        { id: 29, price: 18600, image: "/images/artworks/artwork1.jpg", title: "Cosmic Dance" },
+        { id: 30, price: 13800, image: "/images/artworks/artwork2.jpg", title: "Harmony" },
       ],
     };
   },
+
+  computed: {
+    // Фильтрованные произведения (для поиска)
+    filteredArtworks() {
+      if (!this.searchQuery.trim()) {
+        return this.artworks;
+      }
+      return this.artworks.filter(artwork => 
+        artwork.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        artwork.price.toString().includes(this.searchQuery)
+      );
+    },
+
+    // Общее количество страниц
+    totalPages() {
+      return Math.ceil(this.filteredArtworks.length / this.itemsPerPage);
+    },
+
+    // Произведения для текущей страницы
+    paginatedArtworks() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.filteredArtworks.slice(start, end);
+    },
+
+    // Информация о пагинации
+    paginationInfo() {
+      const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+      const end = Math.min(this.currentPage * this.itemsPerPage, this.filteredArtworks.length);
+      return {
+        start,
+        end,
+        total: this.filteredArtworks.length
+      };
+    }
+  },
+
   methods: {
     setupMasonryLayout() {
       const items = document.querySelectorAll(".artwork-item");
@@ -51,13 +110,120 @@ export default {
           item.style.gridRowEnd = `span ${spans}`;
         });
 
-        // Если изображение уже загружено
         if (img.complete) {
           const height = img.offsetHeight;
           const spans = Math.ceil((height + 16) / 10);
           item.style.gridRowEnd = `span ${spans}`;
         }
       });
+    },
+
+    // Методы пагинации
+    goToPage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.updateGallery();
+      }
+    },
+
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.updateGallery();
+      }
+    },
+
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.updateGallery();
+      }
+    },
+
+    updateGallery() {
+      const galleryElement = document.getElementById('artGallery');
+      if (galleryElement) {
+        galleryElement.innerHTML = this.renderGallery();
+        this.setupMasonryLayout();
+        this.attachGalleryEvents();
+      }
+      this.updatePaginationUI();
+    },
+
+    updatePaginationUI() {
+      // Обновляем информацию о пагинации
+      const paginationInfo = document.getElementById('paginationInfo');
+      if (paginationInfo) {
+        const info = this.paginationInfo;
+        paginationInfo.textContent = `${info.start}-${info.end} из ${info.total}`;
+      }
+
+      // Полностью перерендериваем блок с номерами страниц
+      const paginationNumbers = document.querySelector('.pagination-numbers');
+      if (paginationNumbers) {
+        paginationNumbers.innerHTML = this.renderPaginationNumbers();
+        // Переназначаем обработчики для новых кнопок
+        this.attachPaginationNumberEvents();
+      }
+
+      // Обновляем кнопки "Назад" и "Далее"
+      this.updateNavigationButtons();
+    },
+
+    updateNavigationButtons() {
+      const prevBtn = document.getElementById('prevPageBtn');
+      const nextBtn = document.getElementById('nextPageBtn');
+
+      if (prevBtn) {
+        prevBtn.disabled = this.currentPage === 1;
+        prevBtn.classList.toggle('disabled', this.currentPage === 1);
+      }
+
+      if (nextBtn) {
+        nextBtn.disabled = this.currentPage === this.totalPages;
+        nextBtn.classList.toggle('disabled', this.currentPage === this.totalPages);
+      }
+    },
+
+    attachPaginationNumberEvents() {
+      document.querySelectorAll(".pagination-number").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const page = parseInt(e.target.dataset.page);
+          this.goToPage(page);
+        });
+      });
+    },
+
+    // Генерация номеров страниц для отображения
+    getVisiblePages() {
+      const total = this.totalPages;
+      const current = this.currentPage;
+      const pages = [];
+
+      if (total <= 7) {
+        // Показываем все страницы если их мало
+        for (let i = 1; i <= total; i++) {
+          pages.push(i);
+        }
+      } else {
+        // Сложная логика для большого количества страниц
+        if (current <= 4) {
+          // Начало: 1,2,3,4,5...last
+          pages.push(1, 2, 3, 4, 5, '...', total);
+        } else if (current >= total - 3) {
+          // Конец: 1...last-4,last-3,last-2,last-1,last
+          pages.push(1, '...', total - 4, total - 3, total - 2, total - 1, total);
+        } else {
+          // Середина: 1...current-1,current,current+1...last
+          pages.push(1, '...', current - 1, current, current + 1, '...', total);
+        }
+      }
+
+      return pages;
+    },
+
+    resetPagination() {
+      this.currentPage = 1;
     },
 
     showModal() {
@@ -117,9 +283,8 @@ export default {
               <option value="name">По названию</option>
             </select>
             <svg class="sort-arrow" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.7193 6.46658L7.06596 10.8132C7.5793 11.3266 8.4193 11.3266 8.93263 10.8132L13.2793 6.46658" stroke="#3F3F3F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+              <path d="M2.7193 6.46658L7.06596 10.8132C7.5793 11.3266 8.4193 11.3266 8.93263 10.8132L13.2793 6.46658" stroke="#3F3F3F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
         </div>
 
@@ -131,7 +296,6 @@ export default {
 
       <!-- Payment and Top-up section -->
       <div class="art-modal__payment-section">
-
         <div class="art-modal__payment">
           <div class="payment-label">Оплата:</div>
           <div class="payment-tabs">
@@ -157,7 +321,6 @@ export default {
           <span class="info-label">Стоимость участия (для первых двух работ) <span class="info-value">- ${
             this.participationCost
           }</span></span>
-          
         </div>
         <div class="info-item">
           <span class="info-label">Каждая последующая</span>
@@ -184,27 +347,55 @@ export default {
 
       <!-- Preorder checkbox -->
       <div class="art-modal__preorder">
-        <!-- Новый код без label -->
-<div class="preorder-checkbox">
-  <div class="checkbox-wrapper">
-    <input type="checkbox" id="preorderCheck" ${this.preorderPrint ? "checked" : ""}>
-    <span class="checkmark" id="checkmarkSpan"></span>
-  </div>
-  <span class="checkbox-label">Оформить предзаказ на печатную версию</span>
-  <img 
-    src="${this.isInfoModalOpen ? "/images/vopros-active.png" : "/images/vopros.png"}" 
-    alt="Info" 
-    class="info-icon" 
-    id="infoIcon"
-    width="20" 
-    height="20"
-  >
-</div>
+        <div class="preorder-checkbox">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="preorderCheck" ${this.preorderPrint ? "checked" : ""}>
+            <span class="checkmark" id="checkmarkSpan"></span>
+          </div>
+          <span class="checkbox-label">Оформить предзаказ на печатную версию</span>
+          <img 
+            src="${this.isInfoModalOpen ? "/images/vopros-active.png" : "/images/vopros.png"}" 
+            alt="Info" 
+            class="info-icon" 
+            id="infoIcon"
+            width="20" 
+            height="20"
+          >
+        </div>
       </div>
 
       <!-- Gallery section -->
       <div class="art-modal__gallery" id="artGallery">
         ${this.renderGallery()}
+      </div>
+
+      <!-- Pagination section -->
+      <div class="art-modal__pagination">
+        <div class="pagination-info">
+          <span id="paginationInfo">${this.paginationInfo.start}-${this.paginationInfo.end} из ${this.paginationInfo.total}</span>
+        </div>
+        
+        <div class="pagination-controls">
+          <button class="pagination-btn pagination-btn--prev ${this.currentPage === 1 ? 'disabled' : ''}" 
+                  id="prevPageBtn" ${this.currentPage === 1 ? 'disabled' : ''}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="pagination-btn__text">Назад</span>
+          </button>
+
+          <div class="pagination-numbers">
+            ${this.renderPaginationNumbers()}
+          </div>
+
+          <button class="pagination-btn pagination-btn--next ${this.currentPage === this.totalPages ? 'disabled' : ''}" 
+                  id="nextPageBtn" ${this.currentPage === this.totalPages ? 'disabled' : ''}>
+            <span class="pagination-btn__text">Далее</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Footer buttons -->
@@ -216,17 +407,32 @@ export default {
   `;
     },
 
+    renderPaginationNumbers() {
+      const pages = this.getVisiblePages();
+      return pages.map(page => {
+        if (page === '...') {
+          return '<span class="pagination-dots">...</span>';
+        }
+        
+        const isActive = page === this.currentPage;
+        return `
+          <button class="pagination-number ${isActive ? 'active' : ''}" 
+                  data-page="${page}">
+            ${page}
+          </button>
+        `;
+      }).join('');
+    },
+
     showInfoModal(pinned = false) {
       this.isInfoModalOpen = true;
       this.isTooltipPinned = pinned;
 
-      // Обновляем иконку
       const infoIcon = document.getElementById("infoIcon");
       if (infoIcon) {
         infoIcon.src = "/images/vopros-active.png";
       }
 
-      // Создаем tooltip если его еще нет
       if (!document.querySelector(".custom-tooltip")) {
         this.createTooltip();
       }
@@ -235,11 +441,9 @@ export default {
     hideTooltip() {
       const tooltip = document.querySelector(".custom-tooltip");
       if (tooltip) {
-        // Анимация исчезновения
         tooltip.style.opacity = "0";
         tooltip.style.transform = "translateY(-10px) scale(0.95)";
 
-        // Удаляем элемент после завершения анимации
         setTimeout(() => {
           if (tooltip.parentNode) {
             tooltip.remove();
@@ -250,7 +454,6 @@ export default {
       this.isInfoModalOpen = false;
       this.isTooltipPinned = false;
 
-      // Возвращаем обычную иконку
       const infoIcon = document.getElementById("infoIcon");
       if (infoIcon) {
         infoIcon.src = "/images/vopros.png";
@@ -262,7 +465,6 @@ export default {
     },
 
     createTooltip() {
-      // Удаляем существующий tooltip если есть
       const existingTooltip = document.querySelector(".custom-tooltip");
       if (existingTooltip) {
         existingTooltip.remove();
@@ -271,47 +473,37 @@ export default {
       const tooltip = document.createElement("div");
       tooltip.className = "custom-tooltip";
       tooltip.innerHTML = `
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-    </div>
-  `;
+        <div class="tooltip-arrow"></div>
+        <div class="tooltip-content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        </div>
+      `;
 
-      // Добавляем tooltip в DOM с начальной невидимостью
       tooltip.style.opacity = "0";
       tooltip.style.transform = "translateY(-10px) scale(0.95)";
 
-      // Добавляем в art-modal-content вместо body
       const modalContent = document.querySelector(".art-modal-content");
       modalContent.appendChild(tooltip);
 
-      // Позиционируем tooltip относительно иконки
       const infoIcon = document.getElementById("infoIcon");
       const modalRect = modalContent.getBoundingClientRect();
       const iconRect = infoIcon.getBoundingClientRect();
-
-      // Получаем реальные размеры tooltip
       const tooltipRect = tooltip.getBoundingClientRect();
 
-      // Вычисляем позицию относительно modalContent
-      const left =
-        iconRect.left - modalRect.left + iconRect.width / 2 - tooltipRect.width / 2;
+      const left = iconRect.left - modalRect.left + iconRect.width / 2 - tooltipRect.width / 2;
       const top = iconRect.bottom - modalRect.top + 10;
 
       tooltip.style.left = left + "px";
       tooltip.style.top = top + "px";
 
-      // Позиционируем стрелочку точно по центру иконки
       const arrow = tooltip.querySelector(".tooltip-arrow");
       arrow.style.left = tooltipRect.width / 2 - 8 + "px";
 
-      // Запускаем анимацию появления
       requestAnimationFrame(() => {
         tooltip.style.opacity = "1";
         tooltip.style.transform = "translateY(0) scale(1)";
       });
 
-      // Обработчики для самого tooltip
       tooltip.addEventListener("mouseenter", () => {
         this.isInfoModalOpen = true;
       });
@@ -322,7 +514,6 @@ export default {
         }
       });
 
-      // Создаем обработчик с правильным контекстом (только для закрепленных tooltip)
       this.tooltipClickHandler = (e) => {
         const tooltip = document.querySelector(".custom-tooltip");
         const infoIcon = document.getElementById("infoIcon");
@@ -340,35 +531,27 @@ export default {
       document.addEventListener("click", this.tooltipClickHandler);
     },
 
-    closeTooltip(e) {
-      const tooltip = document.querySelector(".custom-tooltip");
-      const infoIcon = document.getElementById("infoIcon");
-
-      if (tooltip && !tooltip.contains(e.target) && e.target !== infoIcon) {
-        tooltip.remove();
-        this.isInfoModalOpen = false;
-
-        // Возвращаем обычную иконку
-        if (infoIcon) {
-          infoIcon.src = "/images/vopros.png";
-        }
-
-        document.removeEventListener("click", this.closeTooltip);
-      }
-    },
-
     renderGallery() {
-      return this.artworks
+      return this.paginatedArtworks
         .map(
           (artwork) => `
       <div class="artwork-item" data-id="${artwork.id}">
-        <img src="${artwork.image}" alt="Artwork ${artwork.id}" class="artwork-image">
+        <img src="${artwork.image}" alt="${artwork.title}" class="artwork-image">
         <div class="artwork-price">#${artwork.price}</div>
         <div class="artwork-overlay"></div>
       </div>
     `
         )
         .join("");
+    },
+
+    attachGalleryEvents() {
+      document.querySelectorAll(".artwork-item").forEach((item) => {
+        item.addEventListener("click", (e) => {
+          const artworkId = parseInt(e.currentTarget.dataset.id);
+          this.toggleArtworkSelection(artworkId);
+        });
+      });
     },
 
     initModalEvents() {
@@ -385,27 +568,40 @@ export default {
         this.preorderPrint = e.target.checked;
       });
 
-      // Обработчик для галереи
-      document.querySelectorAll(".artwork-item").forEach((item) => {
-        item.addEventListener("click", (e) => {
-          const artworkId = parseInt(e.currentTarget.dataset.id);
-          this.toggleArtworkSelection(artworkId);
+      // Обработчики для галереи
+      this.attachGalleryEvents();
+
+      // Обработчики пагинации
+      document.getElementById("prevPageBtn").addEventListener("click", () => {
+        this.prevPage();
+      });
+
+      document.getElementById("nextPageBtn").addEventListener("click", () => {
+        this.nextPage();
+      });
+
+      document.querySelectorAll(".pagination-number").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const page = parseInt(e.target.dataset.page);
+          this.goToPage(page);
         });
       });
 
       // Обработчик поиска
       document.getElementById("searchInput").addEventListener("input", (e) => {
         this.searchQuery = e.target.value;
+        this.resetPagination(); // Сбрасываем на первую страницу при поиске
+        this.updateGallery();
         this.updateClearButton();
-        // Реализуйте фильтрацию
       });
 
       // Обработчик кнопки очистки
       document.getElementById("clearBtn").addEventListener("click", () => {
         this.searchQuery = "";
         document.getElementById("searchInput").value = "";
+        this.resetPagination();
+        this.updateGallery();
         this.updateClearButton();
-        // Реализуйте очистку фильтрации
       });
 
       // Обработчики кнопок
@@ -418,25 +614,22 @@ export default {
       });
 
       document.getElementById("topUpBtn").addEventListener("click", () => {
-        // Логика пополнения баланса
         console.log("Пополнить баланс");
       });
 
       // Обработчики для информационной иконки
       const infoIcon = document.getElementById("infoIcon");
 
-      // Наведение мыши - показать tooltip с задержкой
       let hoverTimeout;
       infoIcon.addEventListener("mouseenter", (e) => {
         clearTimeout(hoverTimeout);
         if (!this.isInfoModalOpen) {
           hoverTimeout = setTimeout(() => {
-            this.showInfoModal(false); // false = не закреплен
+            this.showInfoModal(false);
           }, 100);
         }
       });
 
-      // Уход мыши - скрыть tooltip только если не закреплен
       infoIcon.addEventListener("mouseleave", (e) => {
         clearTimeout(hoverTimeout);
         if (this.isInfoModalOpen && !this.isTooltipPinned) {
@@ -448,26 +641,21 @@ export default {
         }
       });
 
-      // Клик - закрепить/открепить tooltip
       infoIcon.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         if (this.isInfoModalOpen && this.isTooltipPinned) {
-          // Если tooltip закреплен - убираем его
           this.hideTooltip();
         } else {
-          // Показываем и закрепляем tooltip
-          this.showInfoModal(true); // true = закреплен
+          this.showInfoModal(true);
         }
       });
 
-      // Обработчик для чекбокса (только для самого чекбокса и checkmark)
       document.getElementById("preorderCheck").addEventListener("change", (e) => {
         this.preorderPrint = e.target.checked;
       });
 
-      // Обработчик для checkmark
       document.getElementById("checkmarkSpan").addEventListener("click", (e) => {
         const checkbox = document.getElementById("preorderCheck");
         checkbox.checked = !checkbox.checked;
@@ -498,7 +686,6 @@ export default {
         this.selectedArtworks.push(artworkId);
       }
 
-      // Обновляем UI
       this.updateCounters();
       this.updateArtworkSelection(artworkId);
     },
@@ -530,11 +717,11 @@ export default {
     },
 
     confirmSelection() {
-      // Логика подтверждения выбора
       console.log("Selected artworks:", this.selectedArtworks);
       console.log("Total amount:", this.calculateTotal());
       console.log("Payment method:", this.selectedTab);
       console.log("Preorder print:", this.preorderPrint);
+      console.log("Current page:", this.currentPage);
       Swal.close();
     },
   },
