@@ -281,6 +281,7 @@ export default {
               <option value="default">По умолчанию</option>
               <option value="price">По цене</option>
               <option value="name">По названию</option>
+              <option value="number">По номеру</option>
             </select>
             <svg class="sort-arrow" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2.7193 6.46658L7.06596 10.8132C7.5793 11.3266 8.4193 11.3266 8.93263 10.8132L13.2793 6.46658" stroke="#3F3F3F" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -290,7 +291,7 @@ export default {
 
         <div class="art-modal__balance">
           <span class="balance-label">Ваш баланс:</span>
-          <span class="balance-amount">${this.balance} ₽</span>
+          <span class="balance-amount">${this.balance} <span class="artcoins">Artcoins</span></span>
         </div>
       </div>
 
@@ -307,7 +308,7 @@ export default {
             <button class="payment-tab ${
               this.selectedTab === "points" ? "active" : ""
             }" data-tab="points">
-              Баллами
+              Artcoins
             </button>
           </div>
         </div>

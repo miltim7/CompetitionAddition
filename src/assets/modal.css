@@ -18,6 +18,10 @@
   --spacing-xl: 32px;
 }
 
+.artcoins {
+  font-size: 16px;
+}
+
 .swal2-popup.art-modal {
   padding: 0;
   border-radius: var(--border-radius-large);
