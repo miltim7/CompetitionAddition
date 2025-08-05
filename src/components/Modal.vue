@@ -20,81 +20,229 @@ export default {
       balance: 105,
       participationCost: 36,
       nextWorkCost: 18,
-      
-      // Пагинация
+
       currentPage: 1,
       itemsPerPage: 12,
-      
-      // Расширенный массив для демонстрации пагинации (30 элементов)
+
       artworks: [
-        { id: 1, price: 14850, image: "/images/artworks/artwork1.jpg", title: "Sunset Dreams" },
-        { id: 2, price: 12400, image: "/images/artworks/artwork2.jpg", title: "Ocean Waves" },
-        { id: 3, price: 16700, image: "/images/artworks/artwork3.jpg", title: "Mountain Peak" },
-        { id: 4, price: 11200, image: "/images/artworks/artwork4.jpg", title: "City Lights" },
-        { id: 5, price: 18900, image: "/images/artworks/artwork1.jpg", title: "Forest Path" },
-        { id: 6, price: 13500, image: "/images/artworks/artwork2.jpg", title: "Desert Storm" },
-        { id: 7, price: 15800, image: "/images/artworks/artwork3.jpg", title: "River Flow" },
-        { id: 8, price: 10900, image: "/images/artworks/artwork4.jpg", title: "Sky Portal" },
-        { id: 9, price: 17600, image: "/images/artworks/artwork1.jpg", title: "Aurora Dance" },
-        { id: 10, price: 14200, image: "/images/artworks/artwork2.jpg", title: "Crystal Cave" },
-        { id: 11, price: 16300, image: "/images/artworks/artwork3.jpg", title: "Wind Song" },
-        { id: 12, price: 12800, image: "/images/artworks/artwork4.jpg", title: "Fire Spirit" },
-        { id: 13, price: 19200, image: "/images/artworks/artwork1.jpg", title: "Ice Kingdom" },
-        { id: 14, price: 11600, image: "/images/artworks/artwork2.jpg", title: "Thunder Strike" },
-        { id: 15, price: 15400, image: "/images/artworks/artwork3.jpg", title: "Moon Glow" },
-        { id: 16, price: 13900, image: "/images/artworks/artwork4.jpg", title: "Star Dust" },
-        { id: 17, price: 17800, image: "/images/artworks/artwork1.jpg", title: "Earth Song" },
-        { id: 18, price: 12100, image: "/images/artworks/artwork2.jpg", title: "Water Spirit" },
-        { id: 19, price: 16500, image: "/images/artworks/artwork3.jpg", title: "Air Dance" },
-        { id: 20, price: 14700, image: "/images/artworks/artwork4.jpg", title: "Light Beam" },
-        { id: 21, price: 18400, image: "/images/artworks/artwork1.jpg", title: "Shadow Play" },
-        { id: 22, price: 13200, image: "/images/artworks/artwork2.jpg", title: "Dream Catcher" },
-        { id: 23, price: 15900, image: "/images/artworks/artwork3.jpg", title: "Soul Mirror" },
-        { id: 24, price: 11800, image: "/images/artworks/artwork4.jpg", title: "Time Portal" },
-        { id: 25, price: 17200, image: "/images/artworks/artwork1.jpg", title: "Space Voyage" },
-        { id: 26, price: 14600, image: "/images/artworks/artwork2.jpg", title: "Mystic Garden" },
-        { id: 27, price: 16100, image: "/images/artworks/artwork3.jpg", title: "Magic Circle" },
-        { id: 28, price: 12500, image: "/images/artworks/artwork4.jpg", title: "Energy Flow" },
-        { id: 29, price: 18600, image: "/images/artworks/artwork1.jpg", title: "Cosmic Dance" },
-        { id: 30, price: 13800, image: "/images/artworks/artwork2.jpg", title: "Harmony" },
+        {
+          id: 1,
+          price: 14850,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Sunset Dreams",
+        },
+        {
+          id: 2,
+          price: 12400,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Ocean Waves",
+        },
+        {
+          id: 3,
+          price: 16700,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Mountain Peak",
+        },
+        {
+          id: 4,
+          price: 11200,
+          image: "/images/artworks/artwork4.jpg",
+          title: "City Lights",
+        },
+        {
+          id: 5,
+          price: 18900,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Forest Path",
+        },
+        {
+          id: 6,
+          price: 13500,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Desert Storm",
+        },
+        {
+          id: 7,
+          price: 15800,
+          image: "/images/artworks/artwork3.jpg",
+          title: "River Flow",
+        },
+        {
+          id: 8,
+          price: 10900,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Sky Portal",
+        },
+        {
+          id: 9,
+          price: 17600,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Aurora Dance",
+        },
+        {
+          id: 10,
+          price: 14200,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Crystal Cave",
+        },
+        {
+          id: 11,
+          price: 16300,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Wind Song",
+        },
+        {
+          id: 12,
+          price: 12800,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Fire Spirit",
+        },
+        {
+          id: 13,
+          price: 19200,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Ice Kingdom",
+        },
+        {
+          id: 14,
+          price: 11600,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Thunder Strike",
+        },
+        {
+          id: 15,
+          price: 15400,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Moon Glow",
+        },
+        {
+          id: 16,
+          price: 13900,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Star Dust",
+        },
+        {
+          id: 17,
+          price: 17800,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Earth Song",
+        },
+        {
+          id: 18,
+          price: 12100,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Water Spirit",
+        },
+        {
+          id: 19,
+          price: 16500,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Air Dance",
+        },
+        {
+          id: 20,
+          price: 14700,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Light Beam",
+        },
+        {
+          id: 21,
+          price: 18400,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Shadow Play",
+        },
+        {
+          id: 22,
+          price: 13200,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Dream Catcher",
+        },
+        {
+          id: 23,
+          price: 15900,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Soul Mirror",
+        },
+        {
+          id: 24,
+          price: 11800,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Time Portal",
+        },
+        {
+          id: 25,
+          price: 17200,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Space Voyage",
+        },
+        {
+          id: 26,
+          price: 14600,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Mystic Garden",
+        },
+        {
+          id: 27,
+          price: 16100,
+          image: "/images/artworks/artwork3.jpg",
+          title: "Magic Circle",
+        },
+        {
+          id: 28,
+          price: 12500,
+          image: "/images/artworks/artwork4.jpg",
+          title: "Energy Flow",
+        },
+        {
+          id: 29,
+          price: 18600,
+          image: "/images/artworks/artwork1.jpg",
+          title: "Cosmic Dance",
+        },
+        {
+          id: 30,
+          price: 13800,
+          image: "/images/artworks/artwork2.jpg",
+          title: "Harmony",
+        },
       ],
     };
   },
 
   computed: {
-    // Фильтрованные произведения (для поиска)
     filteredArtworks() {
       if (!this.searchQuery.trim()) {
         return this.artworks;
       }
-      return this.artworks.filter(artwork => 
-        artwork.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        artwork.price.toString().includes(this.searchQuery)
+      return this.artworks.filter(
+        (artwork) =>
+          artwork.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          artwork.price.toString().includes(this.searchQuery)
       );
     },
 
-    // Общее количество страниц
     totalPages() {
       return Math.ceil(this.filteredArtworks.length / this.itemsPerPage);
     },
 
-    // Произведения для текущей страницы
     paginatedArtworks() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
       return this.filteredArtworks.slice(start, end);
     },
 
-    // Информация о пагинации
     paginationInfo() {
       const start = (this.currentPage - 1) * this.itemsPerPage + 1;
-      const end = Math.min(this.currentPage * this.itemsPerPage, this.filteredArtworks.length);
+      const end = Math.min(
+        this.currentPage * this.itemsPerPage,
+        this.filteredArtworks.length
+      );
       return {
         start,
         end,
-        total: this.filteredArtworks.length
+        total: this.filteredArtworks.length,
       };
-    }
+    },
   },
 
   methods: {
@@ -118,7 +266,6 @@ export default {
       });
     },
 
-    // Методы пагинации
     goToPage(page) {
       if (page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
@@ -141,7 +288,7 @@ export default {
     },
 
     updateGallery() {
-      const galleryElement = document.getElementById('artGallery');
+      const galleryElement = document.getElementById("artGallery");
       if (galleryElement) {
         galleryElement.innerHTML = this.renderGallery();
         this.setupMasonryLayout();
@@ -151,37 +298,33 @@ export default {
     },
 
     updatePaginationUI() {
-      // Обновляем информацию о пагинации
-      const paginationInfo = document.getElementById('paginationInfo');
+      const paginationInfo = document.getElementById("paginationInfo");
       if (paginationInfo) {
         const info = this.paginationInfo;
         paginationInfo.textContent = `${info.start}-${info.end} из ${info.total}`;
       }
 
-      // Полностью перерендериваем блок с номерами страниц
-      const paginationNumbers = document.querySelector('.pagination-numbers');
+      const paginationNumbers = document.querySelector(".pagination-numbers");
       if (paginationNumbers) {
         paginationNumbers.innerHTML = this.renderPaginationNumbers();
-        // Переназначаем обработчики для новых кнопок
         this.attachPaginationNumberEvents();
       }
 
-      // Обновляем кнопки "Назад" и "Далее"
       this.updateNavigationButtons();
     },
 
     updateNavigationButtons() {
-      const prevBtn = document.getElementById('prevPageBtn');
-      const nextBtn = document.getElementById('nextPageBtn');
+      const prevBtn = document.getElementById("prevPageBtn");
+      const nextBtn = document.getElementById("nextPageBtn");
 
       if (prevBtn) {
         prevBtn.disabled = this.currentPage === 1;
-        prevBtn.classList.toggle('disabled', this.currentPage === 1);
+        prevBtn.classList.toggle("disabled", this.currentPage === 1);
       }
 
       if (nextBtn) {
         nextBtn.disabled = this.currentPage === this.totalPages;
-        nextBtn.classList.toggle('disabled', this.currentPage === this.totalPages);
+        nextBtn.classList.toggle("disabled", this.currentPage === this.totalPages);
       }
     },
 
@@ -194,28 +337,22 @@ export default {
       });
     },
 
-    // Генерация номеров страниц для отображения
     getVisiblePages() {
       const total = this.totalPages;
       const current = this.currentPage;
       const pages = [];
 
       if (total <= 7) {
-        // Показываем все страницы если их мало
         for (let i = 1; i <= total; i++) {
           pages.push(i);
         }
       } else {
-        // Сложная логика для большого количества страниц
         if (current <= 4) {
-          // Начало: 1,2,3,4,5...last
-          pages.push(1, 2, 3, 4, 5, '...', total);
+          pages.push(1, 2, 3, 4, 5, "...", total);
         } else if (current >= total - 3) {
-          // Конец: 1...last-4,last-3,last-2,last-1,last
-          pages.push(1, '...', total - 4, total - 3, total - 2, total - 1, total);
+          pages.push(1, "...", total - 4, total - 3, total - 2, total - 1, total);
         } else {
-          // Середина: 1...current-1,current,current+1...last
-          pages.push(1, '...', current - 1, current, current + 1, '...', total);
+          pages.push(1, "...", current - 1, current, current + 1, "...", total);
         }
       }
 
@@ -250,13 +387,12 @@ export default {
     getModalContent() {
       return `
     <div class="art-modal-content">
-      <!-- Header section -->
       <div class="art-modal__header">
         <div class="art-modal__search-section">
           <div class="search-input-wrapper">
-            <input 
-              type="text" 
-              placeholder="Поиск" 
+            <input
+              type="text"
+              placeholder="Поиск"
               class="search-input"
               id="searchInput"
               value="${this.searchQuery}"
@@ -274,7 +410,7 @@ export default {
               </svg>
             </button>
           </div>
-          
+
           <div class="sort-dropdown">
             <img src="/images/frame.png" alt="Sort icon" class="sort-left-icon">
             <select class="sort-select" id="sortSelect">
@@ -291,32 +427,30 @@ export default {
 
         <div class="art-modal__balance">
           <span class="balance-label">Ваш баланс:</span>
-          <span class="balance-amount">${this.balance} <span class="artcoins">Artcoins</span></span>
+          <span class="balance-amount">${
+            this.balance
+          } <span class="artcoins">Artcoins</span></span>
         </div>
       </div>
 
-      <!-- Payment and Top-up section -->
       <div class="art-modal__payment-section">
         <div class="art-modal__payment">
           <div class="payment-label">Оплата:</div>
           <div class="payment-tabs">
-            <button class="payment-tab ${
-              this.selectedTab === "card" ? "active" : ""
-            }" data-tab="card">
-              По карте
-            </button>
-            <button class="payment-tab ${
-              this.selectedTab === "points" ? "active" : ""
-            }" data-tab="points">
-              Artcoins
-            </button>
-          </div>
+  <button class="payment-tab ${this.selectedTab === "card" ? "active" : ""}"
+          data-tab="card" type="button">
+    По карте
+  </button>
+  <button class="payment-tab ${this.selectedTab === "points" ? "active" : ""}"
+          data-tab="points" type="button">
+    Artcoins
+  </button>
+</div>
         </div>
-        
+
         <button class="balance-btn" id="topUpBtn">Пополнить</button>
       </div>
 
-      <!-- Info section -->
       <div class="art-modal__info">
         <div class="info-item">
           <span class="info-label">Стоимость участия (для первых двух работ) <span class="info-value">- ${
@@ -330,7 +464,6 @@ export default {
         </div>
       </div>
 
-      <!-- Counters section -->
       <div class="art-modal__counters">
         <div class="counter-item">
           <span class="counter-label">Выбранные работы</span>
@@ -346,39 +479,44 @@ export default {
         </div>
       </div>
 
-      <!-- Preorder checkbox -->
       <div class="art-modal__preorder">
         <div class="preorder-checkbox">
           <div class="checkbox-wrapper">
-            <input type="checkbox" id="preorderCheck" ${this.preorderPrint ? "checked" : ""}>
+            <input type="checkbox" id="preorderCheck" ${
+              this.preorderPrint ? "checked" : ""
+            }>
             <span class="checkmark" id="checkmarkSpan"></span>
           </div>
           <span class="checkbox-label">Оформить предзаказ на печатную версию</span>
-          <img 
-            src="${this.isInfoModalOpen ? "/images/vopros-active.png" : "/images/vopros.png"}" 
-            alt="Info" 
-            class="info-icon" 
+          <img
+            src="${
+              this.isInfoModalOpen ? "/images/vopros-active.png" : "/images/vopros.png"
+            }"
+            alt="Info"
+            class="info-icon"
             id="infoIcon"
-            width="20" 
+            width="20"
             height="20"
           >
         </div>
       </div>
 
-      <!-- Gallery section -->
       <div class="art-modal__gallery" id="artGallery">
         ${this.renderGallery()}
       </div>
 
-      <!-- Pagination section -->
       <div class="art-modal__pagination">
         <div class="pagination-info">
-          <span id="paginationInfo">${this.paginationInfo.start}-${this.paginationInfo.end} из ${this.paginationInfo.total}</span>
+          <span id="paginationInfo">${this.paginationInfo.start}-${
+        this.paginationInfo.end
+      } из ${this.paginationInfo.total}</span>
         </div>
-        
+
         <div class="pagination-controls">
-          <button class="pagination-btn pagination-btn--prev ${this.currentPage === 1 ? 'disabled' : ''}" 
-                  id="prevPageBtn" ${this.currentPage === 1 ? 'disabled' : ''}>
+          <button class="pagination-btn pagination-btn--prev ${
+            this.currentPage === 1 ? "disabled" : ""
+          }"
+                  id="prevPageBtn" ${this.currentPage === 1 ? "disabled" : ""}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -389,8 +527,12 @@ export default {
             ${this.renderPaginationNumbers()}
           </div>
 
-          <button class="pagination-btn pagination-btn--next ${this.currentPage === this.totalPages ? 'disabled' : ''}" 
-                  id="nextPageBtn" ${this.currentPage === this.totalPages ? 'disabled' : ''}>
+          <button class="pagination-btn pagination-btn--next ${
+            this.currentPage === this.totalPages ? "disabled" : ""
+          }"
+                  id="nextPageBtn" ${
+                    this.currentPage === this.totalPages ? "disabled" : ""
+                  }>
             <span class="pagination-btn__text">Далее</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -399,9 +541,10 @@ export default {
         </div>
       </div>
 
-      <!-- Footer buttons -->
       <div class="art-modal__footer">
-        <button class="btn btn-primary" id="confirmBtn">Подтвердить</button>
+        <button class="btn btn-primary" id="confirmBtn" ${
+          this.selectedArtworks.length === 0 ? "disabled" : ""
+        }>Подтвердить</button>
         <button class="btn btn-secondary" id="backBtn">Назад</button>
       </div>
     </div>
@@ -410,19 +553,21 @@ export default {
 
     renderPaginationNumbers() {
       const pages = this.getVisiblePages();
-      return pages.map(page => {
-        if (page === '...') {
-          return '<span class="pagination-dots">...</span>';
-        }
-        
-        const isActive = page === this.currentPage;
-        return `
-          <button class="pagination-number ${isActive ? 'active' : ''}" 
+      return pages
+        .map((page) => {
+          if (page === "...") {
+            return '<span class="pagination-dots">...</span>';
+          }
+
+          const isActive = page === this.currentPage;
+          return `
+          <button class="pagination-number ${isActive ? "active" : ""}"
                   data-page="${page}">
             ${page}
           </button>
         `;
-      }).join('');
+        })
+        .join("");
     },
 
     showInfoModal(pinned = false) {
@@ -491,7 +636,8 @@ export default {
       const iconRect = infoIcon.getBoundingClientRect();
       const tooltipRect = tooltip.getBoundingClientRect();
 
-      const left = iconRect.left - modalRect.left + iconRect.width / 2 - tooltipRect.width / 2;
+      const left =
+        iconRect.left - modalRect.left + iconRect.width / 2 - tooltipRect.width / 2;
       const top = iconRect.bottom - modalRect.top + 10;
 
       tooltip.style.left = left + "px";
@@ -556,20 +702,33 @@ export default {
     },
 
     initModalEvents() {
-      // Обработчики для табов оплаты
-      document.querySelectorAll(".payment-tab").forEach((tab) => {
+      // Инициализация вкладок оплаты (обновленная версия)
+      const paymentTabs = document.querySelectorAll(".payment-tab");
+      paymentTabs.forEach((tab) => {
         tab.addEventListener("click", (e) => {
-          this.selectedTab = e.target.dataset.tab;
-          this.updatePaymentTabs();
+          e.preventDefault();
+          this.selectedTab = tab.dataset.tab;
+
+          // Обновляем стили вкладок
+          paymentTabs.forEach((t) => {
+            t.classList.toggle("active", t.dataset.tab === this.selectedTab);
+
+            // Дополнительные стили для мобильных
+            if (window.innerWidth <= 768) {
+              t.style.backgroundColor =
+                t.dataset.tab === this.selectedTab ? "#5856D2" : "white";
+              t.style.color = t.dataset.tab === this.selectedTab ? "white" : "#5856D2";
+            }
+          });
         });
       });
 
-      // Обработчик для чекбокса
+      // Обработчик для чекбокса предзаказа
       document.getElementById("preorderCheck").addEventListener("change", (e) => {
         this.preorderPrint = e.target.checked;
       });
 
-      // Обработчики для галереи
+      // Инициализация галереи
       this.attachGalleryEvents();
 
       // Обработчики пагинации
@@ -581,22 +740,17 @@ export default {
         this.nextPage();
       });
 
-      document.querySelectorAll(".pagination-number").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const page = parseInt(e.target.dataset.page);
-          this.goToPage(page);
-        });
-      });
+      // Обработчики номеров страниц
+      this.attachPaginationNumberEvents();
 
-      // Обработчик поиска
+      // Поиск и фильтрация
       document.getElementById("searchInput").addEventListener("input", (e) => {
         this.searchQuery = e.target.value;
-        this.resetPagination(); // Сбрасываем на первую страницу при поиске
+        this.resetPagination();
         this.updateGallery();
         this.updateClearButton();
       });
 
-      // Обработчик кнопки очистки
       document.getElementById("clearBtn").addEventListener("click", () => {
         this.searchQuery = "";
         document.getElementById("searchInput").value = "";
@@ -605,23 +759,26 @@ export default {
         this.updateClearButton();
       });
 
-      // Обработчики кнопок
+      // Кнопки подтверждения и назад
       document.getElementById("confirmBtn").addEventListener("click", () => {
-        this.confirmSelection();
+        if (this.selectedArtworks.length > 0) {
+          this.confirmSelection();
+        }
       });
 
       document.getElementById("backBtn").addEventListener("click", () => {
         Swal.close();
       });
 
+      // Кнопка пополнения баланса
       document.getElementById("topUpBtn").addEventListener("click", () => {
         console.log("Пополнить баланс");
       });
 
-      // Обработчики для информационной иконки
+      // Информационная иконка (тултип)
       const infoIcon = document.getElementById("infoIcon");
-
       let hoverTimeout;
+
       infoIcon.addEventListener("mouseenter", (e) => {
         clearTimeout(hoverTimeout);
         if (!this.isInfoModalOpen) {
@@ -653,17 +810,20 @@ export default {
         }
       });
 
-      document.getElementById("preorderCheck").addEventListener("change", (e) => {
-        this.preorderPrint = e.target.checked;
-      });
-
+      // Дополнительные обработчики для чекбокса
       document.getElementById("checkmarkSpan").addEventListener("click", (e) => {
         const checkbox = document.getElementById("preorderCheck");
         checkbox.checked = !checkbox.checked;
         this.preorderPrint = checkbox.checked;
       });
 
+      // Инициализация masonry-раскладки
       this.setupMasonryLayout();
+
+      // Дополнительный вызов для мобильных устройств
+      if (window.innerWidth <= 768) {
+        this.updatePaymentTabs();
+      }
     },
 
     updateClearButton() {
@@ -673,9 +833,39 @@ export default {
       }
     },
 
+    // В methods добавьте:
+    initPaymentTabs() {
+      const tabs = document.querySelectorAll(".payment-tab");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.selectedTab = tab.dataset.tab;
+          this.updatePaymentTabs();
+
+          // Добавляем небольшой timeout для мобильных устройств
+          setTimeout(() => {
+            this.updatePaymentTabs();
+          }, 50);
+        });
+      });
+    },
+
     updatePaymentTabs() {
-      document.querySelectorAll(".payment-tab").forEach((tab) => {
-        tab.classList.toggle("active", tab.dataset.tab === this.selectedTab);
+      const tabs = document.querySelectorAll(".payment-tab");
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.tab === this.selectedTab;
+        tab.classList.toggle("active", isActive);
+
+        // Для мобильных устройств добавляем дополнительные стили
+        if (window.innerWidth <= 768) {
+          if (isActive) {
+            tab.style.backgroundColor = "#5856D2";
+            tab.style.color = "white";
+          } else {
+            tab.style.backgroundColor = "white";
+            tab.style.color = "#5856D2";
+          }
+        }
       });
     },
 
@@ -689,6 +879,7 @@ export default {
 
       this.updateCounters();
       this.updateArtworkSelection(artworkId);
+      this.updateConfirmButton();
     },
 
     updateArtworkSelection(artworkId) {
@@ -698,6 +889,13 @@ export default {
           "selected",
           this.selectedArtworks.includes(artworkId)
         );
+      }
+    },
+
+    updateConfirmButton() {
+      const confirmBtn = document.getElementById("confirmBtn");
+      if (confirmBtn) {
+        confirmBtn.disabled = this.selectedArtworks.length === 0;
       }
     },
 

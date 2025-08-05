@@ -1416,3 +1416,39 @@
     border-radius: var(--border-radius);
   }
 }
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .payment-tabs {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .payment-tab {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid var(--primary-color);
+    transition: all 0.2s ease;
+  }
+  
+  .payment-tab.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+  }
+  
+  .payment-tab:not(.active) {
+    background-color: white !important;
+    color: var(--primary-color) !important;
+  }
+}
